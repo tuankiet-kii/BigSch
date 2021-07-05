@@ -22,3 +22,35 @@ select,
 textarea {
     max-width: 280px;
 }
+.navbar-inverse {
+    background-color: deeppink;
+    border-color: aqua;
+}
+.navbar-inverse .navbar-nav > li > a{
+    color: white;
+}
+.navbar-inverse .navbar-brand{
+    color : purple;
+}
+.row {
+    list-style: none;
+}
+
+    .row > li {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+        .row > li .date {
+            text-align: center;
+            background-color: deeppink;
+            color: white;
+            width: 60px;
+            border-radius: 8px;
+        }
+
+        .row > li .details {
+            position: absolute;
+            top: 0;
+            left: 70px;
+        }
