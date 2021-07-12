@@ -1,0 +1,26 @@
+﻿body {
+}
+.row
+
+{
+    list-style: none;
+}
+
+.row ul > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+    .row ul > li .date {
+        text-align: center;
+        background-color: deeppink;
+        color: white;
+        width: 60px;
+        border-radius: 8px;
+    }
+
+    .row ul > li .details {
+        position: absolute;
+        top: 0;
+        left: 70px;
+    }

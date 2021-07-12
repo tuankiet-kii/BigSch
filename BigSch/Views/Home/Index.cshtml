@@ -1,0 +1,60 @@
+﻿@model IEnumerable<BigSch.Models.Course>
+@{ ViewBag.Title = "Home Page";
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" />
+}
+<div class="row">
+    <ul>
+ @foreach (var course in Model)
+   {
+    <li>
+        <div class="date">
+            <div class="month">
+                @course.DateTime.ToString("MM")
+            </div>
+            <div class="day">
+                @course.DateTime.ToString("dd")
+            </div>
+        </div>
+        <div class="details">
+            <span class="lecturer">
+                @course.Lecturer.Name
+            </span>
+            <span class="category">
+                @course.CateGory.Name
+            </span>
+            <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-atendance">Going ?</button>
+        </div>
+    </li>
+    }
+    </ul>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-atendance").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { courseId: button.attr("data-course-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
+
+            //    //$(".js-toggle-follow").click(function (e) {
+            //    //    var button = $(e.target);
+            //    //    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+            //    //        .done(function () {
+            //    //            button.text("Following");
+            //    //        })
+            //            .fail(function () {
+            //                alert("Something failed");
+            //            });
+            //    });
+            //});
+    </script>
+}
