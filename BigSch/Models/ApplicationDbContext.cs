@@ -7,24 +7,22 @@ using System.Web;
 
 namespace BigSch.Models
 {
-    
-        public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-        {
-        public DbSet<Course> Course { get; set; }
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public DbSet<Course> Courses { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
-
         public DbSet<Following> Followings { get; set; }
 
         public ApplicationDbContext()
-                : base("DefaultConnection", throwIfV1Schema: false)
-            {
-            }
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
 
-            public static ApplicationDbContext Create()
-            {
-                return new ApplicationDbContext();
-            }
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Attendance>().HasRequired(a => a.Course).WithMany().WillCascadeOnDelete(false);
@@ -34,5 +32,4 @@ namespace BigSch.Models
             base.OnModelCreating(modelBuilder);
         }
     }
-    
 }

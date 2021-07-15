@@ -1,14 +1,15 @@
-﻿using BigSch.DOTs;
+﻿using BigSch.DTOs;
 using BigSch.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Mvc;
+using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
 
-namespace BigSch.Controllers
+namespace DOTRONGNHAN.Controllers
 {
     public class FollowingsController : ApiController
     {
@@ -17,22 +18,26 @@ namespace BigSch.Controllers
         {
             _dbContext = new ApplicationDbContext();
         }
+        /*public ActionResult Index()
+        {
+            return View();
+        }*/
         [HttpPost]
+        // GET: Followings
         public IHttpActionResult Follow(FollowingDto followingDto)
         {
             var userId = User.Identity.GetUserId();
             if (_dbContext.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == followingDto.FolloweeId))
-                return BadRequest("The Following already exixts!");
-            var folowing = new Following
+                return BadRequest("Following already exists!");
+            var following = new Following
             {
                 FollowerId = userId,
                 FolloweeId = followingDto.FolloweeId
             };
-            _dbContext.Followings.Add(folowing);
+            _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
 
             return Ok();
         }
     }
-
 }
